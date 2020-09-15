@@ -1,9 +1,11 @@
 /**
  * Letter Frequency Counter - Made by Timothy Djang for CS-172, Sep 11, 2020
  * 
+ * Emeline was technically my partner but we both made separate programs.
+ * 
  * Features:
  * - No external libraries because i'm too lazy to make them work in my IDE.
- * - Exception handling for when you inevitably type the file name wrong.
+ * - Exception handling for when I inevitably type the file name wrong.
  * - Too many comments.
  */
 
@@ -97,7 +99,7 @@ public class LetterCounter {
                 // Uh oh big complicated math what does it mean.
                 // This thing is the important bit, used for bar height. vvv
                 // (int)(((double)chars[i] / maxChars) * (WINDOW_HEIGHT - 183))
-                // It calculates the percentage of the maximum character count for this letter (how much is it used relative to the most-used letter) and then multiplys that by
+                // It calculates the percentage of the maximum character count for this letter (how much it's used relative to the most-used letter) and then multiplys that by
                 // the total allowed height for a bar, in order to figure out how tall the bar for this letter should be.
                 // The disgusting typecasting stuff in the middle is to make sure it actually calculates a percentage, instead of just giving me 1 or 0.
                 // Basically everything else is just addition or subtraction in order to make everything line up correctly, it's like css but somehow even worse.
@@ -110,21 +112,21 @@ public class LetterCounter {
     }
 
     // Returns an array containing the amount of times each letter was found, sorted from # of a's to # of z's.
-    // For example a file containing "aAAa, BbB" would cause this method to return an array that looks like this:
-    // {4, 3, 0, 0, 0...}
+    // For example a file containing "aAAa, --BbB" would cause this method to return an array that looks like this:
+    // {4, 3, 0, 0, 0... }
     public static int[] readFile() {
 
         try {
             File file = new File(filepath);
             Scanner reader = new Scanner(file, "UTF-8"); // This is how cool kids who want to do lots of unecessary extra work read files.
-            // There was a pretty funny bug here where i guess the scanner assumes UTF-16 encoding or something and was reading an EOF in the middle of a file. Good times.
+            // There was a pretty funny bug here where i guess the scanner assumes UTF-16 encoding or something and was reading an EOF in the middle of the file. Good times.
 
             int[] ret = new int[26];
 
             while (reader.hasNextLine()) {
                 String line = reader.nextLine().toLowerCase(); // Make sure it's lowercase otherwise the capital letters don't count.
                 for (int i = 0; i < line.length(); i++) {
-                    int letter = (int)(line.charAt(i) - 'a'); // Gets the int code for whatever char we're looking at, and makes sure it aligns to the array by subtracting 'a'
+                    int letter = (int)(line.charAt(i) - 'a'); // Gets the int code for whatever char we're looking at, and makes sure it aligns to the array's 0-25 indices by subtracting 'a'
                     if (letter > -1 && letter < ret.length) ret[letter]++; // We only want the chars from a-z, so disregard everything else. Otherwise, increase the count for whichever letter this is.
                 }
             }
